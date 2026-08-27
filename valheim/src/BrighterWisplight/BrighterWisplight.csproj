@@ -5,7 +5,7 @@
     <RootNamespace>BrighterWisplight</RootNamespace>
     <Product>Brighter Wisplight</Product>
     <Version>1.0.0</Version>
-    <Description>Deixa a Wisplight brilhar como uma tocha e amplia o raio que dissipa a nevoa das Mistlands.</Description>
+    <Description>Deixa a luz da Wisplight forte o suficiente para servir de tocha.</Description>
 
     <BepInExPluginGuid>com.pass-os.brighterwisplight</BepInExPluginGuid>
     <BepInExPluginName>$(Product)</BepInExPluginName>
@@ -34,10 +34,6 @@
     <Reference Include="UnityEngine.CoreModule" Private="false">
       <HintPath>$(ValheimManagedDir)\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-    <!-- ParticleSystemForceField (o campo que define o raio da dissipacao) -->
-    <Reference Include="UnityEngine.ParticleSystemModule" Private="false">
-      <HintPath>$(ValheimManagedDir)\UnityEngine.ParticleSystemModule.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <Target Name="DeployToBepInEx" AfterTargets="Build"
@@ -57,7 +53,9 @@
       <_StageDir>$(MSBuildProjectDirectory)\..\..\dist\$(AssemblyName)\stage</_StageDir>
       <_ZipPath>$(MSBuildProjectDirectory)\..\..\dist\$(AssemblyName)-$(Version).zip</_ZipPath>
     </PropertyGroup>
-    <RemoveDir Directories="$(_StageDir)" />
+    <!-- ContinueOnError: o repo fica dentro do OneDrive, que as vezes segura um
+         lock na pasta enquanto sincroniza. O Copy abaixo sobrescreve mesmo assim. -->
+    <RemoveDir Directories="$(_StageDir)" ContinueOnError="true" />
     <MakeDir Directories="$(_StageDir)\plugins" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(_StageDir)\plugins" />
     <Copy SourceFiles="thunderstore\manifest.json;thunderstore\README.md;thunderstore\CHANGELOG.md;thunderstore\icon.png"

@@ -18,9 +18,6 @@ namespace BrighterWisplight
         internal static ConfigEntry<string> LightColor;
         internal static ConfigEntry<bool> CastShadows;
 
-        internal static ConfigEntry<float> DemistRadiusMultiplier;
-        internal static ConfigEntry<float> DemistRadiusAbsolute;
-
         internal static ConfigEntry<string> NameFilter;
         internal static ConfigEntry<bool> VerboseLogging;
 
@@ -58,28 +55,15 @@ namespace BrighterWisplight
                 "Faz a wisp projetar sombras, como uma tocha de verdade. " +
                 "Fica bonito, mas custa FPS — por isso vem desligado.");
 
-            // ---------------- Nevoa ----------------
-            DemistRadiusMultiplier = config.Bind(
-                "3 - Nevoa", "DemistRadiusMultiplier", 2.0f,
-                new ConfigDescription(
-                    "Multiplicador do raio que dissipa a nevoa das Mistlands. 1 = vanilla.",
-                    new AcceptableValueRange<float>(0.1f, 20f)));
-
-            DemistRadiusAbsolute = config.Bind(
-                "3 - Nevoa", "DemistRadiusAbsolute", 0f,
-                new ConfigDescription(
-                    "Raio fixo em metros, ignorando o multiplicador. 0 = usar o multiplicador.",
-                    new AcceptableValueRange<float>(0f, 200f)));
-
             // ---------------- Escopo / debug ----------------
             NameFilter = config.Bind(
-                "4 - Avancado", "NameFilter", "",
-                "Vazio = afeta tudo que dissipa nevoa (a wisp carregada e as tochas de wisp). " +
+                "3 - Avancado", "NameFilter", "",
+                "Vazio = afeta a wisp carregada e as tochas de wisp. " +
                 "Preencha com parte do nome do objeto (ex.: demister_ball) para afetar so ele. " +
                 "Ligue VerboseLogging para descobrir os nomes reais no seu jogo.");
 
             VerboseLogging = config.Bind(
-                "4 - Avancado", "VerboseLogging", false,
+                "3 - Avancado", "VerboseLogging", false,
                 "Loga no console cada objeto afetado, com os valores antes e depois. " +
                 "Use para descobrir nomes para o NameFilter.");
         }

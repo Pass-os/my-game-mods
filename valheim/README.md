@@ -36,7 +36,7 @@ HarmonyX injeta nos metodos do jogo (`Prefix`, `Postfix`, `Transpiler`).
 
 | Mod | O que faz | Status |
 | --- | --- | --- |
-| [`BrighterWisplight`](src/BrighterWisplight/) | Wisplight vira tocha: brilho, alcance e raio de dissipacao da nevoa configuraveis | v1.0.0 |
+| [`BrighterWisplight`](src/BrighterWisplight/) | Wisplight vira tocha: brilho e alcance da luz configuraveis (so luz, nao mexe na nevoa) | v1.0.0 |
 | [`ValheimStarterMod`](src/ValheimStarterMod/) | Template/referencia. Nao e pra jogar — e o esqueleto que os docs citam | template |
 
 ## Estrutura

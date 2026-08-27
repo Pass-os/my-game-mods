@@ -2,7 +2,7 @@
   "name": "BrighterWisplight",
   "version_number": "1.0.0",
   "website_url": "https://github.com/Pass-os/my-game-mods",
-  "description": "Turns the Wisplight into a real torch: brighter light, longer reach, wider mist clearing.",
+  "description": "Makes the Wisplight bright enough to actually work as a torch. Light only.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2333"
   ]

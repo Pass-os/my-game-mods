@@ -1,14 +1,15 @@
 # Brighter Wisplight
 
-A Wisplight ja afasta a nevoa das Mistlands, mas ilumina quase nada — voce
-continua andando no escuro com uma das duas maos ocupadas. Este mod transforma
-ela numa tocha de verdade, e deixa voce escolher o quanto.
+A Wisplight afasta a nevoa das Mistlands, mas ilumina quase nada — voce continua
+andando no escuro com uma das maos ocupadas. Este mod deixa a luz dela forte o
+suficiente para servir de tocha, e voce escolhe o quanto.
 
-- Brilho e alcance da luz configuraveis
-- Raio de dissipacao da nevoa configuravel
+**So mexe em luz.** Nao altera a nevoa, nao adiciona item, nao muda receita.
+
+- Brilho e alcance configuraveis
 - Cor da luz opcional (padrao: mantem o ciano original)
 - Sombras opcionais
-- Client-side: nao precisa estar no servidor, nao precisa que os outros tenham
+- Client-side: nao precisa estar no servidor nem nos outros jogadores
 
 ## Instalacao
 
@@ -23,18 +24,16 @@ valem na hora, sem reiniciar.
 
 | Opcao | Padrao | O que faz |
 | --- | --- | --- |
-| `Enabled` | `true` | Liga/desliga tudo. Desligar restaura os valores originais |
+| `Enabled` | `true` | Liga/desliga. Desligar restaura os valores originais |
 | `IntensityMultiplier` | `3.0` | Brilho. `1` = vanilla |
 | `RangeMultiplier` | `3.0` | Quao longe a luz alcanca. `1` = vanilla |
 | `OverrideColor` | `false` | Trocar a cor da luz |
 | `LightColor` | `#FFD9A0` | Cor, se `OverrideColor` estiver ligado |
 | `CastShadows` | `false` | Projetar sombras. Bonito, mas custa FPS |
-| `DemistRadiusMultiplier` | `2.0` | Raio que afasta a nevoa. `1` = vanilla |
-| `DemistRadiusAbsolute` | `0` | Raio fixo em metros. `0` = usar o multiplicador |
 | `NameFilter` | vazio | Vazio = afeta a wisp carregada **e** as tochas de wisp. Preencha para restringir |
 | `VerboseLogging` | `false` | Loga os objetos afetados e os valores antes/depois |
 
-### Quero afetar so a wisp que eu carrego, nao minhas tochas
+### Quero afetar so a wisp que carrego, nao minhas tochas
 
 Ligue `VerboseLogging`, entre no jogo e olhe o `BepInEx/LogOutput.log`. Ele
 lista o nome de cada objeto afetado. Copie o nome da wisp carregada para
@@ -42,6 +41,9 @@ lista o nome de cada objeto afetado. Copie o nome da wisp carregada para
 
 ## Compatibilidade
 
-Mexe apenas em componentes de objetos ja existentes, em `Demister.Awake`.
-Nao adiciona prefab, nao altera receita e nao toca em rede — entao convive bem
-com mods de conteudo e nao gera dessync em multiplayer.
+O mod usa o componente `Demister` apenas para **localizar** as wisps — nao
+altera nada nele. Combina sem conflito com mods de nevoa como o
+[MistBeGone](https://thunderstore.io/c/valheim/p/Azumatt/MistBeGone/), que
+patcheia `MistEmitter` e `ParticleMist`, classes que este mod nunca toca.
+
+Nao mexe em rede, prefab nem receita.
