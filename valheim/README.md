@@ -32,6 +32,13 @@ HarmonyX injeta nos metodos do jogo (`Prefix`, `Postfix`, `Transpiler`).
 | Doorstop | 4.4.0 |
 | SDK usado no build | .NET SDK 10.0.302 (compila `net472` sem problema) |
 
+## Mods deste repo
+
+| Mod | O que faz | Status |
+| --- | --- | --- |
+| [`BrighterWisplight`](src/BrighterWisplight/) | Wisplight vira tocha: brilho, alcance e raio de dissipacao da nevoa configuraveis | v1.0.0 |
+| [`ValheimStarterMod`](src/ValheimStarterMod/) | Template/referencia. Nao e pra jogar — e o esqueleto que os docs citam | template |
+
 ## Estrutura
 
 ```
@@ -43,6 +50,7 @@ valheim/
 ├── docs/                        # guias detalhados
 ├── dist/                        # (gitignored) zips prontos p/ Thunderstore
 └── src/
+    ├── BrighterWisplight/       # primeiro mod de verdade
     └── ValheimStarterMod/
         ├── ValheimStarterMod.csproj
         ├── Plugin.cs            # entrypoint (BaseUnityPlugin)
@@ -51,6 +59,11 @@ valheim/
         │   └── PlayerPatches.cs # exemplos de patch HarmonyX
         └── thunderstore/        # manifest.json, icon.png, README, CHANGELOG
 ```
+
+> `dotnet build -c Debug` compila os dois e copia para o perfil de jogo. Se voce
+> nao quiser o template rodando no seu jogo, apague a pasta
+> `BepInEx\plugins\ValheimStarterMod` do perfil — ele nao faz nada com os
+> valores padrao, mas tambem nao serve pra nada la.
 
 ## Comandos
 

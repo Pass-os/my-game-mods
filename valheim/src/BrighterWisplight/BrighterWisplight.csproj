@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>BrighterWisplight</AssemblyName>
+    <RootNamespace>BrighterWisplight</RootNamespace>
+    <Product>Brighter Wisplight</Product>
+    <Version>1.0.0</Version>
+    <Description>Deixa a Wisplight brilhar como uma tocha e amplia o raio que dissipa a nevoa das Mistlands.</Description>
+
+    <BepInExPluginGuid>com.pass-os.brighterwisplight</BepInExPluginGuid>
+    <BepInExPluginName>$(Product)</BepInExPluginName>
+    <BepInExPluginVersion>$(Version)</BepInExPluginVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="assembly_valheim" Publicize="true" Private="false">
+      <HintPath>$(ValheimManagedDir)\assembly_valheim.dll</HintPath>
+    </Reference>
+    <Reference Include="assembly_utils" Publicize="true" Private="false">
+      <HintPath>$(ValheimManagedDir)\assembly_utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <!-- ParticleSystemForceField (o campo que define o raio da dissipacao) -->
+    <Reference Include="UnityEngine.ParticleSystemModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="DeployToBepInEx" AfterTargets="Build"
+          Condition="'$(Configuration)' == 'Debug' And '$(ModDeployDir)' != '' And Exists('$(ModDeployDir)')">
+    <PropertyGroup>
+      <_ModOutDir>$(ModDeployDir)\$(AssemblyName)</_ModOutDir>
+    </PropertyGroup>
+    <MakeDir Directories="$(_ModOutDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(_ModOutDir)" />
+    <Copy SourceFiles="$(TargetDir)$(AssemblyName).pdb" DestinationFolder="$(_ModOutDir)"
+          Condition="Exists('$(TargetDir)$(AssemblyName).pdb')" />
+    <Message Importance="high" Text="  -> Mod copiado para $(_ModOutDir)" />
+  </Target>
+
+  <Target Name="PackThunderstore" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <PropertyGroup>
+      <_StageDir>$(MSBuildProjectDirectory)\..\..\dist\$(AssemblyName)\stage</_StageDir>
+      <_ZipPath>$(MSBuildProjectDirectory)\..\..\dist\$(AssemblyName)-$(Version).zip</_ZipPath>
+    </PropertyGroup>
+    <RemoveDir Directories="$(_StageDir)" />
+    <MakeDir Directories="$(_StageDir)\plugins" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(_StageDir)\plugins" />
+    <Copy SourceFiles="thunderstore\manifest.json;thunderstore\README.md;thunderstore\CHANGELOG.md;thunderstore\icon.png"
+          DestinationFolder="$(_StageDir)" Condition="Exists('thunderstore\manifest.json')" ContinueOnError="true" />
+    <ZipDirectory SourceDirectory="$(_StageDir)" DestinationFile="$(_ZipPath)" Overwrite="true" />
+    <Message Importance="high" Text="  -> Pacote Thunderstore: $(_ZipPath)" />
+  </Target>
+
+</Project>
