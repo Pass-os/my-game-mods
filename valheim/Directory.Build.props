@@ -1,0 +1,61 @@
+<Project>
+
+  <!--
+    Props compartilhadas por todos os mods de Valheim deste repo.
+
+    Para sobrescrever caminhos nesta maquina, copie Environment.props.example
+    para Environment.props (ignorado pelo git) e edite la.
+  -->
+  <Import Project="$(MSBuildThisFileDirectory)Environment.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)Environment.props')" />
+
+  <!-- ============ Deteccao automatica da pasta do Valheim ============ -->
+  <PropertyGroup Condition="'$(ValheimDir)' == ''">
+    <ValheimDir Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Valheim\valheim.exe')">C:\Program Files (x86)\Steam\steamapps\common\Valheim</ValheimDir>
+    <ValheimDir Condition="'$(ValheimDir)' == '' And Exists('C:\Program Files\Steam\steamapps\common\Valheim\valheim.exe')">C:\Program Files\Steam\steamapps\common\Valheim</ValheimDir>
+    <ValheimDir Condition="'$(ValheimDir)' == '' And Exists('D:\SteamLibrary\steamapps\common\Valheim\valheim.exe')">D:\SteamLibrary\steamapps\common\Valheim</ValheimDir>
+    <ValheimDir Condition="'$(ValheimDir)' == '' And Exists('E:\SteamLibrary\steamapps\common\Valheim\valheim.exe')">E:\SteamLibrary\steamapps\common\Valheim</ValheimDir>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ValheimManagedDir>$(ValheimDir)\valheim_Data\Managed</ValheimManagedDir>
+  </PropertyGroup>
+
+  <!-- ============ Onde o mod compilado e copiado apos o build ============
+       Prioridade: 1) perfil do Thunderstore Mod Manager  2) BepInEx do jogo -->
+  <PropertyGroup Condition="'$(ModDeployDir)' == ''">
+    <_TsProfile>$(AppData)\Thunderstore Mod Manager\DataFolder\Valheim\profiles\Default</_TsProfile>
+    <_R2Profile>$(AppData)\r2modmanPlus-local\Valheim\profiles\Default</_R2Profile>
+    <ModDeployDir Condition="Exists('$(_TsProfile)\BepInEx')">$(_TsProfile)\BepInEx\plugins</ModDeployDir>
+    <ModDeployDir Condition="'$(ModDeployDir)' == '' And Exists('$(_R2Profile)\BepInEx')">$(_R2Profile)\BepInEx\plugins</ModDeployDir>
+    <ModDeployDir Condition="'$(ModDeployDir)' == '' And Exists('$(ValheimDir)\BepInEx\core')">$(ValheimDir)\BepInEx\plugins</ModDeployDir>
+  </PropertyGroup>
+
+  <!-- ============ Configuracao comum de compilacao ============
+       O Valheim roda Unity 6 com backend Mono / perfil .NET Framework,
+       portanto os plugins precisam ser net472 (nao .NET 8+). -->
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <DebugType Condition="'$(Configuration)' == 'Debug'">portable</DebugType>
+    <DebugType Condition="'$(Configuration)' == 'Release'">none</DebugType>
+    <!-- Mods nao precisam de deps.json nem de copiar as DLLs do jogo -->
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+    <NoWarn>$(NoWarn);MSB3277;CS0436</NoWarn>
+    <Authors>Alex Passos</Authors>
+    <Company>Pass-os</Company>
+    <ModAuthor>Pass-os</ModAuthor>
+  </PropertyGroup>
+
+  <!-- Erro claro se a instalacao do jogo nao for encontrada -->
+  <Target Name="CheckValheimPath" BeforeTargets="BeforeBuild">
+    <Error Condition="!Exists('$(ValheimManagedDir)\assembly_valheim.dll')"
+           Text="Nao achei assembly_valheim.dll em '$(ValheimManagedDir)'. Copie Environment.props.example para Environment.props e aponte ValheimDir para a sua instalacao." />
+  </Target>
+
+</Project>

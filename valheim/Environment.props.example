@@ -1,0 +1,17 @@
+<Project>
+  <!--
+    Copie este arquivo para "Environment.props" (na mesma pasta) e ajuste
+    os caminhos da SUA maquina. Environment.props e ignorado pelo git,
+    entao cada dev/PC pode ter o seu.
+
+    So e necessario se a deteccao automatica do Directory.Build.props falhar.
+  -->
+  <PropertyGroup>
+    <!-- Pasta raiz da instalacao (onde fica valheim.exe) -->
+    <ValheimDir>C:\Program Files (x86)\Steam\steamapps\common\Valheim</ValheimDir>
+
+    <!-- Para onde o .dll compilado e copiado depois do build (Debug).
+         Aponte para o BepInEx\plugins do perfil que voce usa pra testar. -->
+    <ModDeployDir>$(AppData)\Thunderstore Mod Manager\DataFolder\Valheim\profiles\Default\BepInEx\plugins</ModDeployDir>
+  </PropertyGroup>
+</Project>

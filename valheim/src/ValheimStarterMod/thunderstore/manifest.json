@@ -1,0 +1,9 @@
+{
+  "name": "ValheimStarterMod",
+  "version_number": "0.1.0",
+  "website_url": "https://github.com/Pass-os/my-game-mods",
+  "description": "Mod base de exemplo para Valheim (BepInEx + HarmonyX).",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2202"
+  ]
+}

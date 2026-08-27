@@ -1,0 +1,123 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>ValheimStarterMod</AssemblyName>
+    <RootNamespace>ValheimStarterMod</RootNamespace>
+    <Product>Valheim Starter Mod</Product>
+    <Version>0.1.0</Version>
+    <Description>Mod base de exemplo para Valheim (BepInEx + HarmonyX).</Description>
+
+    <!-- Alimenta a classe gerada PluginInfo (BepInEx.PluginInfoProps) -->
+    <BepInExPluginGuid>com.pass-os.valheimstartermod</BepInExPluginGuid>
+    <BepInExPluginName>$(Product)</BepInExPluginName>
+    <BepInExPluginVersion>$(Version)</BepInExPluginVersion>
+
+    <!-- Mude para true se o mod for adicionar conteudo (itens, prefabs,
+         receitas, localizacao, GUI). Isso adiciona a dependencia do Jotunn. -->
+    <UseJotunn>false</UseJotunn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+    <!-- Publiciza as DLLs do jogo em tempo de build: da acesso a membros
+         private/internal sem precisar rodar o AssemblyPublicizer na mao. -->
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" PrivateAssets="all" />
+    <PackageReference Include="JotunnLib" Version="2.29.2" Condition="'$(UseJotunn)' == 'true'" />
+  </ItemGroup>
+
+  <!-- ================= Assemblies do jogo =================
+       Private="false" => nao copia a DLL do jogo pro output do mod. -->
+  <ItemGroup>
+    <Reference Include="assembly_valheim" Publicize="true" Private="false">
+      <HintPath>$(ValheimManagedDir)\assembly_valheim.dll</HintPath>
+    </Reference>
+    <Reference Include="assembly_utils" Publicize="true" Private="false">
+      <HintPath>$(ValheimManagedDir)\assembly_utils.dll</HintPath>
+    </Reference>
+    <Reference Include="assembly_guiutils" Publicize="true" Private="false">
+      <HintPath>$(ValheimManagedDir)\assembly_guiutils.dll</HintPath>
+    </Reference>
+    <Reference Include="gui_framework" Private="false">
+      <HintPath>$(ValheimManagedDir)\gui_framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SoftReferenceableAssets" Private="false">
+      <HintPath>$(ValheimManagedDir)\SoftReferenceableAssets.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- ================= Assemblies da Unity ================= -->
+  <ItemGroup>
+    <Reference Include="UnityEngine" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro" Private="false">
+      <HintPath>$(ValheimManagedDir)\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- ================= Deploy pos-build (so em Debug) ================= -->
+  <Target Name="DeployToBepInEx" AfterTargets="Build"
+          Condition="'$(Configuration)' == 'Debug' And '$(ModDeployDir)' != '' And Exists('$(ModDeployDir)')">
+    <PropertyGroup>
+      <_ModOutDir>$(ModDeployDir)\$(AssemblyName)</_ModOutDir>
+    </PropertyGroup>
+    <MakeDir Directories="$(_ModOutDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(_ModOutDir)" />
+    <Copy SourceFiles="@(IntermediateAssembly->'%(RootDir)%(Directory)%(Filename).pdb')"
+          DestinationFolder="$(_ModOutDir)" Condition="Exists('$(TargetDir)$(AssemblyName).pdb')" />
+    <Message Importance="high" Text="  -> Mod copiado para $(_ModOutDir)" />
+  </Target>
+
+  <!-- ================= Pacote Thunderstore (Release) ================= -->
+  <Target Name="PackThunderstore" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <PropertyGroup>
+      <_StageDir>$(MSBuildProjectDirectory)\..\..\dist\$(AssemblyName)\stage</_StageDir>
+      <_ZipPath>$(MSBuildProjectDirectory)\..\..\dist\$(AssemblyName)-$(Version).zip</_ZipPath>
+    </PropertyGroup>
+    <RemoveDir Directories="$(_StageDir)" />
+    <MakeDir Directories="$(_StageDir)\plugins" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(_StageDir)\plugins" />
+    <Copy SourceFiles="thunderstore\manifest.json;thunderstore\README.md;thunderstore\CHANGELOG.md;thunderstore\icon.png"
+          DestinationFolder="$(_StageDir)" Condition="Exists('thunderstore\manifest.json')" ContinueOnError="true" />
+    <ZipDirectory SourceDirectory="$(_StageDir)" DestinationFile="$(_ZipPath)" Overwrite="true" />
+    <Message Importance="high" Text="  -> Pacote Thunderstore: $(_ZipPath)" />
+  </Target>
+
+</Project>

@@ -1,0 +1,38 @@
+# Build output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.userprefs
+
+# Pastas geradas pelo build de mods
+libs/
+publicized/
+dist/
+packages/
+
+# Overrides locais de caminho (cada maquina tem o seu)
+Environment.props
+
+# IDEs
+.vs/
+.idea/
+.vscode/
+*.DotSettings.user
+
+# Unity (projetos de asset)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]serSettings/
+*.csproj.user
+
+# SO
+Thumbs.db
+desktop.ini
+.DS_Store
