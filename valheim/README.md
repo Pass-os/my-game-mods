@@ -94,16 +94,19 @@ mod manager sozinho. Se sua maquina for diferente, copie
 
 | Doc | Assunto |
 | --- | --- |
+| [`docs/validacao-2026.md`](docs/validacao-2026.md) | **Leia primeiro.** O que dos tutoriais de 2023 ainda vale e o que quebra |
 | [`docs/setup.md`](docs/setup.md) | O que este build automatiza vs. o passo a passo dos tutoriais |
 | [`docs/harmony.md`](docs/harmony.md) | Como escrever patches, achar metodos do jogo, debugar |
 | [`docs/conteudo.md`](docs/conteudo.md) | Adicionar itens/pecas: Jotunn vs. Managers |
+| [`docs/itens.md`](docs/itens.md) | Fluxo completo de um item novo com o ItemManager |
 | [`docs/assets-unity.md`](docs/assets-unity.md) | AssetRipper + projeto Unity para criar assets proprios |
 | [`docs/serversync.md`](docs/serversync.md) | Sincronizar config entre servidor e clientes |
 | [`docs/publicar.md`](docs/publicar.md) | Publicar no Thunderstore / Nexus |
 
-> Se voce estiver seguindo algum tutorial em video, comece por
-> [`docs/setup.md`](docs/setup.md) — ele mapeia cada passo manual do tutorial
-> para o equivalente ja automatizado aqui.
+> Seguindo algum tutorial em video? Os do Azumatt sao os melhores, mas sao de
+> **2023** e desde entao o jogo migrou para Unity 6. Leia
+> [`docs/validacao-2026.md`](docs/validacao-2026.md) antes — ele confere cada
+> afirmacao dos videos contra o estado atual.
 
 ## Bibliotecas que voce pode querer adicionar
 

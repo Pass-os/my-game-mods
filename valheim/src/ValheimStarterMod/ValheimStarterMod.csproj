@@ -41,7 +41,9 @@
     <Reference Include="gui_framework" Private="false">
       <HintPath>$(ValheimManagedDir)\gui_framework.dll</HintPath>
     </Reference>
-    <Reference Include="SoftReferenceableAssets" Private="false">
+    <!-- Sistema de AssetBundles sob demanda, introduzido no 0.217.40.
+         Nao existia nos tutoriais antigos; hoje e ref padrao. -->
+    <Reference Include="SoftReferenceableAssets" Publicize="true" Private="false">
       <HintPath>$(ValheimManagedDir)\SoftReferenceableAssets.dll</HintPath>
     </Reference>
   </ItemGroup>

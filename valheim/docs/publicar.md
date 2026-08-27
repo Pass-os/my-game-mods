@@ -32,7 +32,7 @@ NomeDoMod-0.1.0.zip
 
 ```json
 "dependencies": [
-  "denikson-BepInExPack_Valheim-5.4.2202",
+  "denikson-BepInExPack_Valheim-5.4.2333",
   "ValheimModding-Jotunn-2.29.2"
 ]
 ```

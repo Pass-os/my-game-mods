@@ -35,7 +35,7 @@ Isso adiciona `JotunnLib 2.29.2` via NuGet. Declare a dependencia no
 
 ```json
 "dependencies": [
-  "denikson-BepInExPack_Valheim-5.4.2202",
+  "denikson-BepInExPack_Valheim-5.4.2333",
   "ValheimModding-Jotunn-2.29.2"
 ]
 ```
