@@ -16,6 +16,8 @@ namespace BrighterWisplight
         internal static ConfigEntry<float> RangeMultiplier;
         internal static ConfigEntry<bool> OverrideColor;
         internal static ConfigEntry<string> LightColor;
+        internal static ConfigEntry<bool> ColorAffectsLight;
+        internal static ConfigEntry<bool> ColorAffectsOrb;
         internal static ConfigEntry<bool> CastShadows;
 
         internal static ConfigEntry<string> NameFilter;
@@ -47,8 +49,17 @@ namespace BrighterWisplight
 
             LightColor = config.Bind(
                 "2 - Luz", "LightColor", "#FFD9A0",
-                "Cor da luz em hexadecimal, quando OverrideColor esta ligado. " +
+                "Cor em hexadecimal (#RRGGBB), quando OverrideColor esta ligado. " +
                 "O padrao e um tom quente de tocha.");
+
+            ColorAffectsLight = config.Bind(
+                "2 - Luz", "ColorAffectsLight", true,
+                "A cor se aplica a LUZ projetada — o que ela pinta no chao e nas paredes.");
+
+            ColorAffectsOrb = config.Bind(
+                "2 - Luz", "ColorAffectsOrb", true,
+                "A cor se aplica ao ORBE — a bolinha brilhante que flutua do seu lado. " +
+                "Sao coisas separadas: da para deixar o orbe ciano e a luz quente, ou o contrario.");
 
             CastShadows = config.Bind(
                 "2 - Luz", "CastShadows", false,

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+- Cor da wisp aplicavel separadamente a luz projetada e ao orbe visivel.
+
 ## 1.0.0
 
 - Brilho e alcance da luz da Wisplight configuraveis.

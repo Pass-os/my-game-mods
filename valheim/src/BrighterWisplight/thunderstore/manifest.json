@@ -1,6 +1,6 @@
 {
   "name": "BrighterWisplight",
-  "version_number": "1.0.0",
+  "version_number": "1.1.0",
   "website_url": "https://github.com/Pass-os/my-game-mods",
   "description": "Makes the Wisplight bright enough to actually work as a torch. Light only.",
   "dependencies": [

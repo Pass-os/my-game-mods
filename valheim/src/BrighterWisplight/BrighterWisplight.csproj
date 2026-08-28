@@ -4,7 +4,7 @@
     <AssemblyName>BrighterWisplight</AssemblyName>
     <RootNamespace>BrighterWisplight</RootNamespace>
     <Product>Brighter Wisplight</Product>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Description>Deixa a luz da Wisplight forte o suficiente para servir de tocha.</Description>
 
     <BepInExPluginGuid>com.pass-os.brighterwisplight</BepInExPluginGuid>
@@ -33,6 +33,10 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule" Private="false">
       <HintPath>$(ValheimManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <!-- ParticleSystem: o orbe da wisp e feito de particulas -->
+    <Reference Include="UnityEngine.ParticleSystemModule" Private="false">
+      <HintPath>$(ValheimManagedDir)\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 
