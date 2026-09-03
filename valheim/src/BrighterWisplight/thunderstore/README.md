@@ -18,13 +18,9 @@ helps you see where you step, without turning into a floodlight.
 
 Same spot, same night, same Wisplight. Only the light changed.
 
-**Vanilla**
-
-![Wisplight in vanilla Valheim: the Mistlands floor is almost black](https://raw.githubusercontent.com/Pass-os/my-game-mods/main/valheim/src/BrighterWisplight/thunderstore/images/vanilla.png)
-
-**With Brighter Wisplight**
-
-![Wisplight with the mod: the same ground, plants and rocks are now readable](https://raw.githubusercontent.com/Pass-os/my-game-mods/main/valheim/src/BrighterWisplight/thunderstore/images/modded.png)
+| Vanilla | With Brighter Wisplight |
+| :---: | :---: |
+| ![Wisplight in vanilla Valheim: the Mistlands floor is almost black](https://raw.githubusercontent.com/Pass-os/my-game-mods/main/valheim/src/BrighterWisplight/thunderstore/images/vanilla.png) | ![Wisplight with the mod: the same ground, plants and rocks are now readable](https://raw.githubusercontent.com/Pass-os/my-game-mods/main/valheim/src/BrighterWisplight/thunderstore/images/modded.png) |
 
 Note that the **fog is untouched**. The mist-clearing bubble around you is exactly
 the vanilla size — the mod never modifies it. What changes is how far you can see

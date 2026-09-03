@@ -4,7 +4,7 @@
 
 Documentation only — no code changes.
 
-- Added before/after screenshots to the readme.
+- Added before/after screenshots to the readme, side by side.
 - Spelled out that the fog is untouched: the mist-clearing bubble is vanilla
   sized, only the light reach changed.
 - `website_url` now points at the mod's folder instead of the monorepo root.
