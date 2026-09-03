@@ -6,15 +6,21 @@ Monorepo de mods de jogos. **Uma pasta por jogo**, cada uma autocontida.
 
 Leia `valheim/README.md` e `valheim/docs/setup.md` antes de mexer no build.
 
-### Fatos verificados na maquina (ago/2026)
+### Fatos verificados na maquina (set/2026)
 
-- Jogo: `C:\Program Files (x86)\Steam\steamapps\common\Valheim`
+- Jogo: `G:\SteamLibrary\steamapps\common\Valheim` — **mudou** de
+  `C:\Program Files (x86)\Steam\...` (era o valor ate ago/2026). A deteccao
+  automatica do `Directory.Build.props` nao cobre `G:`, entao esta maquina
+  **depende** do `Environment.props` para achar o jogo.
 - Unity **6000.0.61f1** (Unity 6), backend **Mono** — nao IL2CPP
 - Perfil .NET do jogo e .NET Framework 4.x (`mscorlib 4.6.57`), portanto os
   plugins compilam em **`net472`**. Nunca use `net8.0`+ aqui.
-- BepInEx **5.4.23.3** (nao 6.x), instalado pelo Thunderstore Mod Manager no
-  perfil `Default`, nao na pasta do jogo
-- Deploy de teste: `%APPDATA%\Thunderstore Mod Manager\DataFolder\Valheim\profiles\Default\BepInEx\plugins`
+- BepInEx **5.4.23.3** (nao 6.x), instalado pelo Thunderstore Mod Manager, nao
+  na pasta do jogo
+- Perfis existentes no mod manager: `Default`, `CO-OP`, `SINGLEPLAYER`.
+  Apenas `CO-OP` e `SINGLEPLAYER` tem o ConfigurationManager (F1 no jogo).
+- Deploy de teste (via `Environment.props`): perfil **`CO-OP`** —
+  `%APPDATA%\Thunderstore Mod Manager\DataFolder\Valheim\profiles\CO-OP\BepInEx\plugins`
 
 ### Comandos
 
