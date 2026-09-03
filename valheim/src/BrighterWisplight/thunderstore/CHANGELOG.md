@@ -1,51 +1,61 @@
 # Changelog
 
+## 1.2.1
+
+Documentation only — no code changes.
+
+- Added before/after screenshots to the readme.
+- Spelled out that the fog is untouched: the mist-clearing bubble is vanilla
+  sized, only the light reach changed.
+- `website_url` now points at the mod's folder instead of the monorepo root.
+
 ## 1.2.0
 
-Primeira versao que funciona de verdade. As anteriores nao chegavam a alterar a
-luz — ver "corrigido" abaixo.
+The first version that actually works. Earlier ones never changed the light at
+all — see "Fixed" below.
 
-### Removido
+### Removed
 
-- **Troca de cor** (`OverrideColor`, `LightColor`, `ColorAffectsLight`,
-  `ColorAffectsOrb`). O orbe brilha por emissao HDR e o bloom transforma em
-  branco qualquer emissao com os tres canais acima de 1. A cor original so
-  escapa disso porque tem o canal vermelho zerado. Recolorir sem estourar o
-  efeito nao e possivel, entao o recurso saiu em vez de ficar quebrado.
+- **Color override** (`OverrideColor`, `LightColor`, `ColorAffectsLight`,
+  `ColorAffectsOrb`). The orb glows through HDR emission, and bloom turns any
+  emission with all three channels above 1 into white. The original color only
+  escapes this because its red channel is zero. Recoloring without blowing out
+  the effect is not possible, so the feature was removed rather than left broken.
 
-### Corrigido
+### Fixed
 
-- **O mod nao alterava nada.** O componente `Demister` nao fica no objeto da
-  wisp: fica num filho chamado "Particle System Force Field", que so carrega o
-  force field da nevoa. A busca por luzes partia dali e para baixo, entao voltava
-  sempre vazia. Agora sobe ate achar o objeto que realmente tem a luz.
-- **Travamento ao carregar o mundo.** A captura lia `renderer.materials`, que
-  CLONA cada material do renderer. Isso rodava no `Awake` de cada wisp, e o mundo
-  carrega centenas de uma vez. Sem troca de cor, o mod nao toca mais em material
-  nenhum.
-- **Multiplicador acumulando ao re-equipar.** O estado original era indexado pelo
-  `Demister`, que morre e renasce ao desequipar/equipar, enquanto as luzes
-  sobrevivem. O objeto novo recapturava valores ja alterados e os tratava como
-  "de fabrica". Agora o estado e indexado pela raiz visual.
-- **`NameFilter` nunca filtrou nada.** Ele testava o nome do objeto do
-  `Demister`, que e "Particle System Force Field" em toda wisp do jogo. Agora
-  testa o nome da raiz visual.
+- **The mod did nothing.** The `Demister` component does not sit on the wisp
+  object: it sits on a child named "Particle System Force Field", which only
+  carries the fog force field. The search for lights started there and went
+  downward, so it always came back empty. It now walks up until it finds the
+  object that actually holds the light.
+- **Freeze on world load.** Capture read `renderer.materials`, which CLONES every
+  material on the renderer. That ran inside each wisp's `Awake`, and a world
+  loads hundreds of them at once. With color gone, the mod no longer touches
+  materials at all.
+- **Multiplier compounding on re-equip.** The original state was keyed by the
+  `Demister`, which dies and respawns when you unequip and re-equip, while the
+  lights survive. The new object re-captured already-modified values and treated
+  them as factory defaults. State is now keyed by the visual root.
+- **`NameFilter` never filtered anything.** It tested the name of the
+  `Demister`'s object, which is "Particle System Force Field" on every wisp in
+  the game. It now tests the visual root's name.
 
-### Mudado
+### Changed
 
-- Padroes: `IntensityMultiplier` `1.127699`, `RangeMultiplier` `4.397653`.
-- Tetos apertados: intensidade maximo `1.5`, alcance maximo `5` (eram `20`).
-  Mod de conforto nao precisa de teto que vira vantagem de jogo.
-- Novo `SkipCreatures` (ligado): Hugin, Munin e a Mistwalker carregam `Demister`
-  e ficam de fora por padrao.
-- Excecao em uma wisp nao sobe mais para o carregamento do mundo.
+- Defaults: `IntensityMultiplier` `1.127699`, `RangeMultiplier` `4.397653`.
+- Tighter ceilings: intensity max `1.5`, range max `5` (both were `20`). A
+  comfort mod does not need a ceiling that turns into a gameplay advantage.
+- New `SkipCreatures` (on by default): Hugin, Munin and the Mistwalker carry a
+  `Demister` and are left alone.
+- An exception on one wisp no longer propagates into world loading.
 
 ## 1.1.0
 
-- Cor da wisp aplicavel separadamente a luz projetada e ao orbe visivel.
+- Wisp color applied separately to the projected light and the visible orb.
 
 ## 1.0.0
 
-- Brilho e alcance da luz da Wisplight configuraveis.
-- Cor da luz e sombras opcionais.
-- Config recarrega com o jogo aberto.
+- Configurable brightness and range for the Wisplight.
+- Optional light color and shadows.
+- Config reloads while the game is running.

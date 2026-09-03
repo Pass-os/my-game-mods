@@ -4,7 +4,7 @@
     <AssemblyName>BrighterWisplight</AssemblyName>
     <RootNamespace>BrighterWisplight</RootNamespace>
     <Product>Brighter Wisplight</Product>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Description>Deixa a luz da Wisplight forte o suficiente para enxergar. So luz.</Description>
 
     <BepInExPluginGuid>com.pass-os.brighterwisplight</BepInExPluginGuid>

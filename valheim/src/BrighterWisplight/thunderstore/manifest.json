@@ -1,7 +1,7 @@
 {
   "name": "BrighterWisplight",
-  "version_number": "1.2.0",
-  "website_url": "https://github.com/Pass-os/my-game-mods",
+  "version_number": "1.2.1",
+  "website_url": "https://github.com/Pass-os/my-game-mods/tree/main/valheim/src/BrighterWisplight",
   "description": "Makes the Wisplight actually light your way. Brightness and range only.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2333"
